@@ -1,0 +1,61 @@
+import f2
+def cal(x,y):
+	nowx,nowy =get_pos_x(),get_pos_y()
+	return abs(nowx-x)+abs(nowy-y) 
+def Puzzle():
+	f2.go(get_world_size()//2,get_world_size()//2)
+	plant(Entities.Bush)
+	substance = get_world_size() * 2**(num_unlocked(Unlocks.Mazes) - 1)
+	use_item(Items.Weird_Substance, substance)
+	(x,y) = measure()
+	leftdic = {North:West,West:South,South:East,East:North}
+	rightdic ={North:East,West:North,South:West,East:South}
+	ini =North
+	loop = 0
+	while True:
+		
+					
+					
+		if(x==get_pos_x() and y ==get_pos_y()):
+			harvest()
+			break
+		while True:
+			if(cal(x,y)==1):
+				if(get_pos_x()==x):
+					if(get_pos_y()-y<0):
+						if(can_move(North)):
+							move(North)
+							break
+					else:
+						if(can_move(South)):
+							move(South)
+							break
+				else:
+					if(get_pos_x()-x<0):
+						if(can_move(East)):
+							move(East)
+							break
+					else:
+						if(can_move(West)):
+							move(West)
+							break
+			if(can_move(ini) == True):
+				move(ini)
+				ini = rightdic[ini]
+				break
+				
+				
+			if(can_move(leftdic[ini]) == False):
+				
+				ini = leftdic[ini]
+			else:
+				move(leftdic[ini])
+				break
+				
+				
+			
+		
+		
+		
+		
+	
